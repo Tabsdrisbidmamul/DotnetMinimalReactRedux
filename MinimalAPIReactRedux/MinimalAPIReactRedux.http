@@ -1,0 +1,6 @@
+@MinimalAPIReactRedux_HostAddress = http://localhost:5218
+
+GET {{MinimalAPIReactRedux_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
