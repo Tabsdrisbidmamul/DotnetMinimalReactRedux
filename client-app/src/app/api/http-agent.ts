@@ -70,6 +70,8 @@ const weather = {
 const policies = {
   list: () =>
     requests.get<Policy[]>(import.meta.env.VITE_POLICIES ?? "/policies"),
+  create: (policy: Policy) =>
+    requests.post(import.meta.env.VITE_POLICIES ?? "/policies", policy),
 }
 
 const agent = {

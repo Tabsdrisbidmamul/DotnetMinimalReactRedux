@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalAPIReactRedux.Models.DTOs;
+using MinimalAPIReactRedux.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+builder.Services.AddSingleton<PolicyService, PolicyService>();
 
 var app = builder.Build();
 
@@ -56,24 +60,20 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.MapGet("/policies", () =>
+app.MapGet("/policies", (PolicyService policyService) =>
 {
-    var policies = new List<PoliciesDTO>
-    {
-        new PoliciesDTO
-        {
-            ID = "1",
-            CustomerName = "test",
-            PolicyType = PolicyType.Health,
-            Status = Status.Active,
-            StartDate = DateTime.Now
-        }
-    };
-
-    return policies;
+    return policyService.policies;
 })
 .WithName("GetPolicies")
 .WithOpenApi();
+
+app.MapPost("/policies", (PoliciesDTO policy, PolicyService policyService) =>
+{
+    policyService.AddPolicy(policy);
+    return Results.Created("/policies", policy);
+})
+    .WithName("PostPolicy")
+    .WithOpenApi();
 
 app.Run();
 

@@ -7,12 +7,15 @@ import {
 import { weatherSlice } from "../../features/weather/weatherSlice"
 import { policySlice } from "../../features/policies/slice/policySlice"
 import { combineEpics, createEpicMiddleware } from "redux-observable"
-import { getPolicyEpic } from "../../features/policies/slice/policyEpic"
+import {
+  createPolicyEpic,
+  getPolicyEpic,
+} from "../../features/policies/slice/policyEpic"
 
 const rootReducer = combineSlices(weatherSlice, policySlice)
 export type RootState = ReturnType<typeof rootReducer>
 
-const rootEpic = combineEpics(getPolicyEpic)
+const rootEpic = combineEpics(getPolicyEpic, createPolicyEpic)
 
 const epicMiddleware = createEpicMiddleware()
 

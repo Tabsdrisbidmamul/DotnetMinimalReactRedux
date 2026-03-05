@@ -6,6 +6,7 @@ import {
   selectPolicyError,
   selectPolicyLoading,
 } from "./slice/policySlice"
+import Button from "@mui/material/Button"
 
 export default function PolicyTable(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -26,9 +27,9 @@ export default function PolicyTable(): JSX.Element {
 
   return (
     <div>
-      <button onClick={handleClick} disabled={loading}>
+      <Button onClick={handleClick} disabled={loading}>
         Get Policies
-      </button>
+      </Button>
       <ul>
         {policies.map(policy => (
           <li key={policy.id}>{policy.policyType}</li>

@@ -28,6 +28,7 @@ export const policySlice = createSlice({
     setFilter: create.reducer((state, action: PayloadAction<string>) => {
       state.filter = action.payload
     }),
+    // get policy
     getPolicy: create.reducer(state => {
       state.status = "loading"
     }),
@@ -41,6 +42,24 @@ export const policySlice = createSlice({
       state.status = "failed"
       state.error = action.payload
     }),
+
+    // post policy
+    postPolicy: create.reducer((state, _action: PayloadAction<Policy>) => {
+      state.status = "loading"
+      state.error = undefined
+    }),
+    postPolicySuccess: create.reducer(
+      (state, action: PayloadAction<Policy>) => {
+        state.status = "succeeded"
+        state.policies.push(action.payload)
+      },
+    ),
+    postPolicyFailure: create.reducer(
+      (state, action: PayloadAction<string>) => {
+        state.status = "failed"
+        state.error = action.payload
+      },
+    ),
   }),
   selectors: {
     selectPolicies: state => state.policies,
@@ -51,8 +70,20 @@ export const policySlice = createSlice({
   },
 })
 
-export const { getPolicy, getPolicySuccess, getPolicyFailure, setFilter } =
-  policySlice.actions
+export const {
+  // get policy
+  getPolicy,
+  getPolicySuccess,
+  getPolicyFailure,
+
+  // post policy
+  postPolicy,
+  postPolicySuccess,
+  postPolicyFailure,
+
+  // filter
+  setFilter,
+} = policySlice.actions
 export const {
   selectFilter,
   selectPolicies,

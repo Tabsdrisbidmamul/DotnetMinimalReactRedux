@@ -4,7 +4,7 @@ import PolicyTable from "../../features/policies/PolicyTable"
 function PolicyPage() {
   return (
     <div>
-      <span>PolicyPage</span>
+      <div>PolicyPage</div>
       <PolicyFilter />
       <PolicyTable />
     </div>
