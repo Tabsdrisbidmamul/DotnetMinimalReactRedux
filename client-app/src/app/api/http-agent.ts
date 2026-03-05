@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios"
 import { Weather } from "../models/weather"
-import { Policy } from "../../features/policies/slice/policySlice"
+import { PolicyResponseDTO } from "../../features/policies/slice/policySlice"
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
 
@@ -69,8 +69,10 @@ const weather = {
 
 const policies = {
   list: () =>
-    requests.get<Policy[]>(import.meta.env.VITE_POLICIES ?? "/policies"),
-  create: (policy: Policy) =>
+    requests.get<PolicyResponseDTO[]>(
+      import.meta.env.VITE_POLICIES ?? "/policies",
+    ),
+  create: (policy: PolicyResponseDTO) =>
     requests.post(import.meta.env.VITE_POLICIES ?? "/policies", policy),
 }
 

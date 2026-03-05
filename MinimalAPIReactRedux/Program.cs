@@ -1,8 +1,15 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalAPIReactRedux.Models.DTOs;
 using MinimalAPIReactRedux.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -67,10 +74,10 @@ app.MapGet("/policies", (PolicyService policyService) =>
 .WithName("GetPolicies")
 .WithOpenApi();
 
-app.MapPost("/policies", (PoliciesDTO policy, PolicyService policyService) =>
+app.MapPost("/policies", (PoliciesRequestDTO policy, PolicyService policyService) =>
 {
-    policyService.AddPolicy(policy);
-    return Results.Created("/policies", policy);
+    var createdPolicy = policyService.AddPolicy(policy);
+    return createdPolicy.Item2 ? Results.Created("/policies", createdPolicy.Item1) : Results.BadRequest("Failed to create policy. Bad input");
 })
     .WithName("PostPolicy")
     .WithOpenApi();

@@ -1,13 +1,15 @@
+import { Box } from "@mui/material"
 import PolicyFilter from "../../features/policies/PolicyFilter"
+import PolicyForm from "../../features/policies/PolicyForm"
 import PolicyTable from "../../features/policies/PolicyTable"
 
 function PolicyPage() {
   return (
-    <div>
-      <div>PolicyPage</div>
-      <PolicyFilter />
-      <PolicyTable />
-    </div>
+    <Box>
+      {/* <PolicyFilter />
+      <PolicyTable /> */}
+      <PolicyForm />
+    </Box>
   )
 }
 

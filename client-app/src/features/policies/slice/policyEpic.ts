@@ -3,7 +3,7 @@ import {
   getPolicy,
   getPolicyFailure,
   getPolicySuccess,
-  Policy,
+  PolicyResponseDTO,
   postPolicy,
   postPolicyFailure,
   postPolicySuccess,
@@ -26,9 +26,9 @@ export const getPolicyEpic: Epic = (action$: Observable<unknown>) =>
 export const createPolicyEpic: Epic = (action$: Observable<unknown>) =>
   action$.pipe(
     ofType(postPolicy.type),
-    mergeMap((action: PayloadAction<Policy>) =>
+    mergeMap((action: PayloadAction<PolicyResponseDTO>) =>
       from(agent.policies.create(action.payload)).pipe(
-        map(data => postPolicySuccess(data as Policy)),
+        map(data => postPolicySuccess(data as PolicyResponseDTO)),
         catchError((e: Error) => of(postPolicyFailure(e.message))),
       ),
     ),

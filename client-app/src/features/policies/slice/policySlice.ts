@@ -1,15 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-export type Policy = {
+export type PolicyType = "Health" | "Dental" | "Vision"
+export type PolicyStatus = "Active" | "Expired" | "Pending"
+
+export type PolicyResponseDTO = {
   id: string
   customerName: string
-  policyType: "Health" | "Dental" | "Vision"
-  status: "Active" | "Expired" | "Pending"
+  policyType: PolicyType
+  policyStatus: PolicyStatus
   startDate: string
 }
 
+export type PolicyRequestDTO = {
+  customerName: string
+  policyType: PolicyType
+  policyStatus: PolicyStatus
+  startDate?: string
+}
+
 export interface PolicyState {
-  policies: Policy[]
+  policies: PolicyResponseDTO[]
   status: "idle" | "loading" | "succeeded" | "failed"
   error?: string
   filter: string
@@ -33,7 +43,7 @@ export const policySlice = createSlice({
       state.status = "loading"
     }),
     getPolicySuccess: create.reducer(
-      (state, action: PayloadAction<Policy[]>) => {
+      (state, action: PayloadAction<PolicyResponseDTO[]>) => {
         state.status = "succeeded"
         state.policies = action.payload
       },
@@ -44,12 +54,14 @@ export const policySlice = createSlice({
     }),
 
     // post policy
-    postPolicy: create.reducer((state, _action: PayloadAction<Policy>) => {
-      state.status = "loading"
-      state.error = undefined
-    }),
+    postPolicy: create.reducer(
+      (state, _action: PayloadAction<PolicyRequestDTO>) => {
+        state.status = "loading"
+        state.error = undefined
+      },
+    ),
     postPolicySuccess: create.reducer(
-      (state, action: PayloadAction<Policy>) => {
+      (state, action: PayloadAction<PolicyResponseDTO>) => {
         state.status = "succeeded"
         state.policies.push(action.payload)
       },

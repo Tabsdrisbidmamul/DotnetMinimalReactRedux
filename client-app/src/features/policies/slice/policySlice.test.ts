@@ -1,24 +1,29 @@
 import agent from "../../../app/api/http-agent"
 import { AppStore, makeStore } from "../../../app/stores/store"
-import { Policy, policySlice, PolicyState, selectPolicies } from "./policySlice"
+import {
+  PolicyResponseDTO,
+  policySlice,
+  PolicyState,
+  selectPolicies,
+} from "./policySlice"
 
 type LocalTestContext = {
   store: AppStore
 }
 
-const policies: Policy[] = [
+const policies: PolicyResponseDTO[] = [
   {
     id: "1",
     customerName: "test",
     policyType: "Health",
-    status: "Active",
+    policyStatus: "Active",
     startDate: "2026-03-03T08:35:11.9336044+00:00",
   },
 ]
 
 describe("policy slice", function () {
   beforeEach<LocalTestContext>(function (ctx) {
-    vi.mock("../../app/api/http-agent.ts", { spy: true })
+    vi.mock("../../../app/api/http-agent.ts", { spy: true })
 
     const initialState: PolicyState = {
       policies: [...policies],
