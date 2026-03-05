@@ -6,7 +6,7 @@
         public required string CustomerName { get; set; }
         public required PolicyType PolicyType { get; set; }
         public required Status Status { get; set; }
-        public required string StartDate { get; set; }
+        public required string PolicyStartDate { get; set; }
     }
 
     public sealed class PoliciesRequestDTO
@@ -14,7 +14,7 @@
         public required string CustomerName { get; set; }
         public required string PolicyType { get; set; }
         public required string PolicyStatus { get; set; }
-        public string? StartDate { get; set; }
+        public required string PolicyStartDate { get; set; }
     }
 
     public enum PolicyType

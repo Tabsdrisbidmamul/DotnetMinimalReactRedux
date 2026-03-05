@@ -1,8 +1,8 @@
-import { useAppDispatch } from "../../app/stores/hooks"
-import { setFilter } from "./slice/policySlice"
+import { useAppDispatch } from "../../app/stores/hooks";
+import { setFilter } from "./slice/policySlice";
 
 function PolicyFilter() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   return (
     <label>
@@ -17,7 +17,7 @@ function PolicyFilter() {
         <option value="pending">Pending</option>
       </select>
     </label>
-  )
+  );
 }
 
-export default PolicyFilter
+export default PolicyFilter;

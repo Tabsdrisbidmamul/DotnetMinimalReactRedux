@@ -34,6 +34,7 @@ export default function PolicyForm() {
         customerName,
         policyType,
         policyStatus,
+        policyStartDate,
       }),
     )
   }

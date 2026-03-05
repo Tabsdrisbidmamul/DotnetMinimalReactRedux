@@ -1,4 +1,4 @@
-import { Epic, ofType } from "redux-observable"
+import { Epic, ofType } from "redux-observable";
 import {
   getPolicy,
   getPolicyFailure,
@@ -7,10 +7,10 @@ import {
   postPolicy,
   postPolicyFailure,
   postPolicySuccess,
-} from "./policySlice"
-import { catchError, from, map, mergeMap, Observable, of } from "rxjs"
-import agent from "../../../app/api/http-agent"
-import { PayloadAction } from "@reduxjs/toolkit"
+} from "./policySlice";
+import { catchError, from, map, mergeMap, Observable, of } from "rxjs";
+import agent from "../../../app/api/http-agent";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export const getPolicyEpic: Epic = (action$: Observable<unknown>) =>
   action$.pipe(
@@ -21,7 +21,7 @@ export const getPolicyEpic: Epic = (action$: Observable<unknown>) =>
         catchError(e => of(getPolicyFailure(e.message))),
       ),
     ),
-  )
+  );
 
 export const createPolicyEpic: Epic = (action$: Observable<unknown>) =>
   action$.pipe(
@@ -32,4 +32,4 @@ export const createPolicyEpic: Epic = (action$: Observable<unknown>) =>
         catchError((e: Error) => of(postPolicyFailure(e.message))),
       ),
     ),
-  )
+  );

@@ -22,7 +22,7 @@ namespace MinimalAPIReactRedux.Services
                     CustomerName = "test",
                     PolicyType = PolicyType.Health,
                     Status = Status.Active,
-                    StartDate = DateTime.Now.ToString("O")
+                    PolicyStartDate = DateTime.Now.ToString("O")
                  }
             };
         }
@@ -44,9 +44,9 @@ namespace MinimalAPIReactRedux.Services
             }
 
             DateTime policyDate;
-            if(!DateTime.TryParseExact(policy.StartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out policyDate))
+            if(!DateTime.TryParseExact(policy.PolicyStartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out policyDate))
             {
-                _logger.LogError($"AddPolicy(): Failed to parse policy start date. Got {policy.StartDate}");
+                _logger.LogError($"AddPolicy(): Failed to parse policy start date. Got {policy.PolicyStartDate}");
                 return (null, false);
             }
 
@@ -56,7 +56,7 @@ namespace MinimalAPIReactRedux.Services
                 CustomerName = policy.CustomerName,
                 PolicyType = policyType,
                 Status = policyStatus,
-                StartDate = policyDate.ToString("O")
+                PolicyStartDate = policyDate.ToString("O")
             };
 
             _policies.Add(newPolicy);
