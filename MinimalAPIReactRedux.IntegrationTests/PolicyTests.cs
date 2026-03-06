@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using MinimalAPIReactRedux.Models.DTOs;
 using MinimalAPIReactRedux.Services;
-using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Xunit.Abstractions;
 
 
 namespace MinimalAPIReactRedux.IntegrationTests
