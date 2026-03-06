@@ -3,21 +3,21 @@ import {
   combineSlices,
   configureStore,
   ThunkAction,
-} from "@reduxjs/toolkit"
-import { weatherSlice } from "../../features/weather/weatherSlice"
-import { policySlice } from "../../features/policies/slice/policySlice"
-import { combineEpics, createEpicMiddleware } from "redux-observable"
+} from "@reduxjs/toolkit";
+import { weatherSlice } from "../../features/weather/weatherSlice";
+import { policySlice } from "../../features/policies/slice/policySlice";
+import { combineEpics, createEpicMiddleware } from "redux-observable";
 import {
   createPolicyEpic,
   getPolicyEpic,
-} from "../../features/policies/slice/policyEpic"
+} from "../../features/policies/slice/policyEpic";
 
-const rootReducer = combineSlices(weatherSlice, policySlice)
-export type RootState = ReturnType<typeof rootReducer>
+const rootReducer = combineSlices(weatherSlice, policySlice);
+export type RootState = ReturnType<typeof rootReducer>;
 
-const rootEpic = combineEpics(getPolicyEpic, createPolicyEpic)
+const rootEpic = combineEpics(getPolicyEpic, createPolicyEpic);
 
-const epicMiddleware = createEpicMiddleware()
+const epicMiddleware = createEpicMiddleware();
 
 export function makeStore(preloadedState?: Partial<RootState>) {
   const store = configureStore({
@@ -25,20 +25,14 @@ export function makeStore(preloadedState?: Partial<RootState>) {
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(epicMiddleware),
     preloadedState,
-  })
+  });
 
-  epicMiddleware.run(rootEpic)
+  epicMiddleware.run(rootEpic);
 
-  return store
+  return store;
 }
 
-export const store = makeStore()
+export const store = makeStore();
 
-export type AppStore = typeof store
-export type AppDispatch = AppStore["dispatch"]
-export type AppThunk<ThunkReturnType = void> = ThunkAction<
-  ThunkReturnType,
-  RootState,
-  unknown,
-  Action
->
+export type AppStore = typeof store;
+export type AppDispatch = AppStore["dispatch"];

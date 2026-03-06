@@ -1,11 +1,11 @@
-import { createBrowserRouter } from "react-router"
-import HomePage from "../../pages/home/home"
-import PolicyPage from "../../pages/Policy/PolicyPage"
-import AppLayout from "../layouts/AppLayout"
+import { createBrowserRouter } from "react-router";
+import HomePage from "../../pages/home/home";
+import PolicyPage from "../../pages/Policy/PolicyPage";
+import AppLayout from "../layouts/AppLayout";
 
 export const routes = {
   index: "/",
-}
+};
 
 export const router = createBrowserRouter([
   {
@@ -22,4 +22,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
