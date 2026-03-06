@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalAPIReactRedux.Models.DTOs;
 using MinimalAPIReactRedux.Services;
 using Serilog;
@@ -45,7 +44,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if(!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseHttpsRedirection();
+}
 
 var summaries = new[]
 {
@@ -88,3 +90,6 @@ internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+// To ensure testing framework picks up correct Program
+public partial class Program { }
