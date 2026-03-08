@@ -6,7 +6,6 @@ namespace MinimalAPIReactRedux.Services
     public sealed class PolicyService
     {
         private List<PoliciesResponseDTO> _policies = new();
-        public List<PoliciesResponseDTO> policies { get { return _policies; } }
 
         private readonly ILogger<PolicyService> _logger;
 
@@ -23,8 +22,52 @@ namespace MinimalAPIReactRedux.Services
                     PolicyType = PolicyType.Health,
                     Status = Status.Active,
                     PolicyStartDate = DateTime.Now.ToString("O")
+                 },
+                  
+                new PoliciesResponseDTO
+                 {
+                    ID = Guid.NewGuid(),
+                    CustomerName = "test2",
+                    PolicyType = PolicyType.Health,
+                    Status = Status.Active,
+                    PolicyStartDate = DateTime.Now.ToString("O")
+                 },
+                   
+                new PoliciesResponseDTO
+                 {
+                    ID = Guid.NewGuid(),
+                    CustomerName = "test3",
+                    PolicyType = PolicyType.Dental,
+                    Status = Status.Active,
+                    PolicyStartDate = DateTime.Now.ToString("O")
+                 },
+
+                 new PoliciesResponseDTO
+                 {
+                    ID = Guid.NewGuid(),
+                    CustomerName = "test4",
+                    PolicyType = PolicyType.Vision,
+                    Status = Status.Active,
+                    PolicyStartDate = DateTime.Now.ToString("O")
                  }
             };
+        }
+
+        public List<PoliciesResponseDTO> GetPolicies(string? policyFilter)
+        {
+            if(policyFilter == "All")
+            {
+                return _policies;
+            }
+
+            PolicyType policyType;
+            if(!Enum.TryParse(policyFilter, out policyType))
+            {
+                _logger.LogError($"Failed to parse policy filter. Got {policyFilter}.");
+                return _policies;
+            }
+
+            return _policies.Where(p => p.PolicyType == policyType).ToList();
         }
 
         public (PoliciesResponseDTO?, bool) AddPolicy(PoliciesRequestDTO policy)

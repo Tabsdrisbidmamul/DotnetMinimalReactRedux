@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type PolicyType = "Health" | "Dental" | "Vision";
+export type PolicyType = "Health" | "Dental" | "Vision" | "All";
 export type PolicyStatus = "Active" | "Expired" | "Pending";
 
 export type PolicyResponseDTO = {

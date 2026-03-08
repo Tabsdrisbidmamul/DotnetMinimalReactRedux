@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using MinimalAPIReactRedux.Models.DTOs;
 using MinimalAPIReactRedux.Services;
 using Serilog;
@@ -69,9 +70,9 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.MapGet("/policies", (PolicyService policyService) =>
+app.MapGet("/policies", (PolicyService policyService, [FromQuery(Name = "filter")]string? filter="All") =>
 {
-    return policyService.policies;
+    return policyService.GetPolicies(filter);
 })
 .WithName("GetPolicies")
 .WithOpenApi();

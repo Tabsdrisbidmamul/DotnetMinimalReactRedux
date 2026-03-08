@@ -19,7 +19,7 @@ const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 axios.interceptors.response.use(
   async function (response) {
     if (import.meta.env.DEV) {
-      await sleep(5000);
+      await sleep(1000);
     }
 
     return response;
@@ -71,9 +71,9 @@ const weather = {
 };
 
 const policies = {
-  list: () =>
+  list: (filter: string) =>
     requests.get<PolicyResponseDTO[]>(
-      import.meta.env.VITE_POLICIES ?? "/policies",
+      `${import.meta.env.VITE_POLICIES}?filter=${filter}`,
     ),
   create: (policy: PolicyRequestDTO) =>
     requests.post(import.meta.env.VITE_POLICIES ?? "/policies", policy),

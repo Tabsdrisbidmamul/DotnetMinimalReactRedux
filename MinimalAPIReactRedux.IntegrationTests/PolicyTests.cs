@@ -10,30 +10,29 @@ using System.Text.Json.Serialization;
 
 namespace MinimalAPIReactRedux.IntegrationTests
 {
-    public class PolicyTests : IClassFixture<WebApplicationFactory<Program>>
+    public class PolicyTests : BaseTestFixture
     {
-        private readonly HttpClient _client;
-
-        public PolicyTests(WebApplicationFactory<Program> factory)
+        public PolicyTests(WebApplicationFactory<Program> factory): base(factory)
         {
-            _client = factory.WithWebHostBuilder(builder =>
+            factory.WithWebHostBuilder(builder =>
             {
-                builder.UseEnvironment("Testing");
                 builder.ConfigureServices(services =>
                 {
                     services.AddSingleton<PolicyService, PolicyService>();
-                    services.ConfigureHttpJsonOptions(options =>
-                    {
-                        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                    });
                 });
-            })
-                .CreateClient();
-
+            });
         }
 
         [Fact]
-        public async Task CreatePolicy_Returns201Created()
+        public async Task Get_Policies_Returns_200()
+        {
+            var response = await _client.GetAsync("/policies?filter=All");
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task CreatePolicy_Returns_201_Created()
         {
             var policiesRequestDTO = new PoliciesRequestDTO 
             { 
