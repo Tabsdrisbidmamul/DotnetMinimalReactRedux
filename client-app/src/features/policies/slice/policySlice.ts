@@ -22,20 +22,20 @@ export interface PolicyState {
   policies: PolicyResponseDTO[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error?: string;
-  filter: string;
+  filter: PolicyType;
 }
 
 const initialState: PolicyState = {
   policies: [],
   status: "idle",
-  filter: "all",
+  filter: "All",
 };
 
 export const policySlice = createSlice({
   name: "policies",
   initialState,
   reducers: create => ({
-    setFilter: create.reducer((state, action: PayloadAction<string>) => {
+    setFilter: create.reducer((state, action: PayloadAction<PolicyType>) => {
       state.filter = action.payload;
     }),
     // get policy

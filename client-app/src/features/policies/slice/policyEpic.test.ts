@@ -25,7 +25,7 @@ describe("post policies epic", function () {
     const initialState: PolicyState = {
       policies: [...policies],
       status: "idle",
-      filter: "all",
+      filter: "All",
     };
 
     const store = makeStore({ policies: initialState });

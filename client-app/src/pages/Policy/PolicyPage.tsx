@@ -8,7 +8,7 @@ function PolicyPage() {
     <Box>
       <PolicyFilter />
       <PolicyTable />
-      {/* <PolicyForm /> */}
+      <PolicyForm />
     </Box>
   );
 }
