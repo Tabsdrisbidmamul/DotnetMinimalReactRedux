@@ -28,7 +28,7 @@ describe("policy slice", function () {
     const initialState: PolicyState = {
       policies: [...policies],
       status: "idle",
-      filter: "all",
+      filter: "All",
     };
 
     const store = makeStore({ policies: initialState });
@@ -39,7 +39,7 @@ describe("policy slice", function () {
     expect(policySlice.reducer(undefined, { type: "unknown" })).toStrictEqual({
       policies: [],
       status: "idle",
-      filter: "all",
+      filter: "All",
     });
   });
 
